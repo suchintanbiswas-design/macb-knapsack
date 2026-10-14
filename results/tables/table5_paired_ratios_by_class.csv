@@ -1,0 +1,4 @@
+class,pairs,time_ratio,mem_ratio,cta_med_active,b4_med_active
+Uncorrelated,25,1.060,1.046,4.0,4.0
+Weakly corr.,25,1.527,1.651,14.0,4.0
+Strongly corr.,25,1.454,1.003,32.0,4.0

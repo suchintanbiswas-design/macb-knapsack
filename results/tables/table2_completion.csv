@@ -1,0 +1,17 @@
+suite,method,completed,timeouts
+reproduction,DP,75/75,0
+reproduction,Std. B&B,72/75,3
+reproduction,CTA,75/75,0
+reproduction,MACB B=4,75/75,0
+reproduction,MACB B=8,75/75,0
+reproduction,MACB B=16,75/75,0
+reproduction,MACB B=32,75/75,0
+reproduction,MACB B=64,75/75,0
+extended,DP,12/12,0
+extended,Std. B&B,10/12,2
+extended,CTA,10/12,2
+extended,MACB B=4,10/12,2
+extended,MACB B=8,10/12,2
+extended,MACB B=16,10/12,2
+extended,MACB B=32,10/12,2
+extended,MACB B=64,10/12,2

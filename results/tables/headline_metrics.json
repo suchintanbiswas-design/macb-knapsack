@@ -1,0 +1,20 @@
+{
+  "paired_instances": 75,
+  "cta_median_time_ms": 2.5546,
+  "macb4_median_time_ms": 3.0675,
+  "median_time_overhead_pct": 29.89119875655719,
+  "median_mem_ratio_all": 1.0715986083134956,
+  "median_mem_ratio_strong": 1.0025881591717891,
+  "median_frontier_ratio": 0.4,
+  "cta_max_active": 5625,
+  "cta_max_kb": 5934.988,
+  "macb4_max_kb": 1708.973,
+  "macb4_max_active": 4,
+  "cta_median_explored": 27,
+  "macb4_median_explored": 38,
+  "std_bnb_median_explored": 41.5,
+  "total_rows": 696,
+  "completed_rows": 679,
+  "timeout_rows": 17,
+  "wrong_vs_dp": 0
+}
