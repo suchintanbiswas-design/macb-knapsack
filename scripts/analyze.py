@@ -320,6 +320,14 @@ def figures(rows):
 
 
 def main():
+    global RES, TAB, FIG
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--results-dir", default=RES, help="folder holding benchmark_results.csv (default: results/)")
+    args = ap.parse_args()
+    RES = os.path.abspath(args.results_dir)
+    TAB = os.path.join(RES, "tables")
+    FIG = os.path.join(RES, "figures")
     path = os.path.join(RES, "benchmark_results.csv")
     if not os.path.exists(path):
         sys.exit("run scripts/run_benchmark.py first")

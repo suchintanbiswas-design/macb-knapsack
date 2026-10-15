@@ -29,6 +29,7 @@ scripts/
   analyze.py          builds all tables and figures from the benchmark CSV
   environment_info.py records Python / OS / CPU used for the run
   run_all.sh          runs everything in order
+  demo.py             live demonstration (tests + validation + benchmark + graphs, PASS/FAIL per step)
 tests/                unit tests (python -m unittest discover -s tests)
 data/
   instances.csv               all 87 benchmark instances (weights, values, capacity, seed)
@@ -76,6 +77,19 @@ order, ws, vs = sort_items(w, v)                       # ratio order, ties by or
 res = run_method("macb", w, v, cap, order, ws, vs, budget=4, time_limit=3.0)
 print(res["value"], res["items"], res["peak_active"], res["peak_deferred"], res["time_ms"], res["peak_kb"])
 ```
+
+## Live demo (for presentations)
+
+One command shows that the code works and that the graphs regenerate; it writes only to `results_demo/` and never touches `results/`:
+
+```bash
+python scripts/demo.py           # fast demo (about 10 s): tests, paper's worked example, 241-case validation,
+                                 # small benchmark, and all 5 graphs rebuilt from the saved full run
+python scripts/demo.py --full    # complete re-run (about 2 min): all 87 instances / 696 runs, new graphs,
+                                 # and a check that the search behaviour matches the saved run exactly
+```
+
+Each step prints `[PASS]` or `[FAIL]`. Afterwards open `results_demo/figures/` to show the graphs. See `docs/DEMO.md` for a step-by-step presentation guide and a Google Colab version.
 
 ## Experimental protocol (matches Section II-E of the paper)
 

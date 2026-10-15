@@ -39,8 +39,14 @@ def validation_instances():
 
 
 def main():
-    os.makedirs(os.path.join(ROOT, "data"), exist_ok=True)
-    os.makedirs(os.path.join(ROOT, "results"), exist_ok=True)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--outdir", default=None, help="write both CSVs here instead of data/ and results/")
+    args = ap.parse_args()
+    data_dir = args.outdir or os.path.join(ROOT, "data")
+    res_dir = args.outdir or os.path.join(ROOT, "results")
+    os.makedirs(data_dir, exist_ok=True)
+    os.makedirs(res_dir, exist_ok=True)
     inst_rows, res_rows = [], []
     failures = 0
     n_inst = 0
@@ -64,8 +70,9 @@ def main():
                 reference_value=ref_val, value=r["value"], feasible=r["feasible"],
                 peak_active=r.get("peak_active", ""), activations=r.get("activations", ""),
                 deferrals=r.get("deferrals", ""), invariant_ok=inv_ok, passed=passed))
-    for name, rows in (("data/validation_instances.csv", inst_rows), ("results/validation_results.csv", res_rows)):
-        with open(os.path.join(ROOT, name), "w", newline="") as f:
+    for path, rows in ((os.path.join(data_dir, "validation_instances.csv"), inst_rows),
+                       (os.path.join(res_dir, "validation_results.csv"), res_rows)):
+        with open(path, "w", newline="") as f:
             wr = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
             wr.writeheader()
             wr.writerows(rows)
