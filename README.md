@@ -2,7 +2,7 @@
 
 Source code, datasets and graphs for the paper
 
-> **Memory-Aware Cascading Branch and Bound: A Resource-Bounded Extension of the Cascading-Tree Algorithm for the 0/1 Knapsack Problem**
+> **Memory-aware cascading branch and bound is a resource-bounded extension of the cascading-tree algorithm for the 0/1 knapsack problem**
 > Suchintan Biswas, Shinjan Roy, Subhodeep Mandal and Suhasini S, School of Computer Science and Engineering / School of Electronics Engineering, Vellore Institute of Technology, Chennai, India.
 
 MACB is an *exact*, resource-bounded variant of the Cascading-Tree Algorithm (CTA, Moeini, Schermer & Wendt, 2024).
@@ -10,14 +10,14 @@ Instead of keeping every open node fully evaluated, MACB keeps at most **B** ful
 remaining children as lightweight *deferred descriptors* that carry their parent's (admissible) upper bound.
 No feasible branch is ever discarded, so the optimum is still guaranteed.
 
-Four exact solvers are implemented and compared:
+Four exact solvers are implemented. The journal manuscript analyses CTA and MACB; dynamic programming serves as the correctness reference, and the standard branch and bound is kept as an additional baseline (its results remain in `results/`):
 
-| Method | Module | Paper |
+| Method | Module | Role in the manuscript |
 |---|---|---|
-| Dynamic programming (2-D table, item reconstruction) | `macb/core.py` | Algorithm 1 |
-| Standard best-bound branch and bound (binary branching) | `macb/solvers.py::standard_bnb` | Algorithm 2 |
-| Cascading-Tree Algorithm (CTA) | `macb/solvers.py::cta` | Algorithm 3 |
-| Memory-Aware Cascading B&B (MACB) | `macb/solvers.py::macb` | Algorithm 4 |
+| Dynamic programming (2-D table, item reconstruction) | `macb/core.py` | reference optimum for correctness checks |
+| Standard best-bound branch and bound (binary branching) | `macb/solvers.py::standard_bnb` | not analysed in the manuscript |
+| Cascading-Tree Algorithm (CTA) | `macb/solvers.py::cta` | baseline (reproduced from Moeini et al.) |
+| Memory-Aware Cascading B&B (MACB) | `macb/solvers.py::macb` | proposed method (Algorithm 1) |
 
 ## Repository layout
 
@@ -30,6 +30,7 @@ scripts/
   environment_info.py records Python / OS / CPU used for the run
   run_all.sh          runs everything in order
   demo.py             live demonstration (tests + validation + benchmark + graphs, PASS/FAIL per step)
+  make_manuscript_figures.py  rebuilds manuscript Figs. 3 and 4 from results/benchmark_results.csv
 tests/                unit tests (python -m unittest discover -s tests)
 data/
   instances.csv               all 87 benchmark instances (weights, values, capacity, seed)
@@ -41,8 +42,22 @@ results/
   RESULTS.md                  all tables in readable form
   tables/                     tables as CSV (+ headline_metrics.json)
   figures/                    fig4 ... fig8 (time/memory, open list, pruning, budget sensitivity, time-memory)
-docs/diagrams/                branching-structure, MACB control-flow and workflow diagrams
+docs/diagrams/                original draft diagrams (branching structures, MACB control flow, workflow)
+docs/manuscript_figures/      figures of the journal manuscript (Figs. 1-4, PDF and PNG)
 ```
+
+## Mapping to the journal manuscript
+
+| Manuscript item | Source in this repository |
+|---|---|
+| Fig. 1 (cascade branching), Fig. 2 (MACB control flow) | `docs/manuscript_figures/fig1_cascade.*`, `fig2_macb_flow.*` |
+| Fig. 3 (frontier, memory and time against n) | `scripts/make_manuscript_figures.py` from `results/benchmark_results.csv` |
+| Fig. 4 (effect of the budget B) | `scripts/make_manuscript_figures.py`; same medians as `results/tables/table6_budget_sensitivity.csv` |
+| Table 1 (time, memory, frontier by method and budget) | `results/tables/table3_*.csv`, `table4_*.csv`, `table6_*.csv` |
+| Table 2 (paired ratios by class) | `results/tables/table5_paired_ratios_by_class.csv` |
+| Completion counts, extended suite | `results/tables/table2_completion.csv`, `table7_extended_suite.csv` |
+
+The figures in `results/figures/` (fig4 ... fig8) belong to the earlier draft and also show the dynamic-programming and standard branch-and-bound curves.
 
 ## Quick start
 
